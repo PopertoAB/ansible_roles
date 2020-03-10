@@ -1,0 +1,20 @@
+---
+- name: Ensure every package is updated
+  yum:
+      name: '*'
+      state: latest
+  become: True
+- name: Ensure EPEL is enabled
+  yum:
+      name: epel-release
+      state: present
+  become: True
+- name: Install nodejs
+  shell:
+      cmd: curl -sL https://rpm.nodesource.com/setup_12.x | sudo bash -
+  become: True
+- name: Configure Node.js to be installed via package manager
+  yum:
+      name: ['curl', 'gcc-c++', 'make', 'mongodb-org', 'nodejs', 'GraphicsMagick']
+      state: present
+  become: True
